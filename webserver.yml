@@ -1,0 +1,10 @@
+- hosts: webserver
+  become: true
+  tasks:
+    - name: install apache webserver
+      apt: name={{item.name}} state=present update_cache=yes
+      #jinja used to iterate over packages required
+      with_items:
+        - {name: 'apache2'}
+        - {name: 'libapache2-mod-wsgi'}
+        - {name: 'python-pip'}
